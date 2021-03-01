@@ -271,6 +271,7 @@ void main() {
    	 actor_y[i] = i*8+64;
    	 actor_dx[i] = 0;
     	 actor_dy[i] = 0;
+         
   }break;
     case 2:
   	for (i=0; i<NUM_ACTORS; i++) {
@@ -284,6 +285,8 @@ void main() {
   
   // loop forever (GAME LOOP)
   while (1) {
+    int yy;
+    yy = choice;
     
     // start with OAMid/sprite 0
     oam_id = 0;
@@ -301,15 +304,27 @@ void main() {
       else actor_dy[i]=0;
     }
     // draw and move all actors
-    for (i=0; i<NUM_ACTORS; i++) {
-      byte runseq = actor_x[i] & 7;
-      if (actor_dx[i] >= 0)
-        runseq += 8;
-      oam_id = oam_meta_spr(actor_x[i], actor_y[i], oam_id, playerRunSeq[runseq]);
-      actor_x[i] += actor_dx[i];
-      actor_y[i] += actor_dy[i];
+ 	if(yy == 1){
+    	for (i=0; i<NUM_ACTORS - 1; i++) {
+     	 byte runseq = actor_x[i] & 7;
+      		if (actor_dx[i] >= 0)
+       	 runseq += 8;
+     	 oam_id = oam_meta_spr(actor_x[i], actor_y[i], oam_id, playerRunSeq[runseq]);
+     	 actor_x[i] += actor_dx[i];
+     	 actor_y[i] += actor_dy[i];
+        }
+        }
+    else
+    {
+      for (i=0; i<NUM_ACTORS; i++) {
+     	 byte runseq = actor_x[i] & 7;
+      		if (actor_dx[i] >= 0)
+       	 runseq += 8;
+     	 oam_id = oam_meta_spr(actor_x[i], actor_y[i], oam_id, playerRunSeq[runseq]);
+     	 actor_x[i] += actor_dx[i];
+     	 actor_y[i] += actor_dy[i];
+        }
     }
-    
     
   //Draws and updates Scoreboard
     oam_id = oam_spr(206, 191, (score/10%10)+48, 1, oam_id);
