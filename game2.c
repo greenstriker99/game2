@@ -233,9 +233,15 @@ void main() {
   //vram_adr(NTADR_A(6,26));
   
    vram_adr(NTADR_A(5,3));
-
+  if(choice == 2){
   vram_write("\x1c\x1d\x1e\x1f or ""wasd"" to move!", 21);
   vram_adr(NTADR_A(20,24));
+  }
+  else
+  {
+    vram_write("\x1c\x1d\x1e\x1f to move!", 13);
+  vram_adr(NTADR_A(20,24));
+  }
   
   
   
